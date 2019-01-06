@@ -1,11 +1,8 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title></title>
-</head>
-<body>
+@extends('layouts.app')
 
-	<form class="container" method="POST" action="{{ url('projects') }}">
+@section('content')
+
+	<form method="POST" action="{{ url('projects') }}">
 		<h1>Create a Project</h1>
 		
 		@csrf
@@ -21,7 +18,7 @@
 		</div>
 		
 		<button type="submit" id="submit" name="submit" class="btn btn-primary">Create Project</button>
+		<a href="{{ url('/projects') }}" class="btn btn-link">Cancel</a>
 	</form>
 
-</body>
-</html>
+@endsection

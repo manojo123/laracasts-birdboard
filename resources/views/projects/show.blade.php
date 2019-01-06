@@ -1,10 +1,7 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title></title>
-</head>
-<body>
+@extends('layouts.app')
+
+@section('content')
 	<h1>{{ $project->title }}</h1>
 	<div>{{ $project->description }}</div>
-</body>
-</html>
+	<a href="{{ url('/projects') }}" class="btn btn-link">Go Back</a>
+@endsection

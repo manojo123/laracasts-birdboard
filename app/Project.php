@@ -10,7 +10,7 @@ class Project extends Model
     protected $guarded = [];
 
     public function path(){
-    	return url('projects')."/".$this->id;
+    	return url('projects/'.$this->id);
     }
 
     public function owner(){
