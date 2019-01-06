@@ -6,38 +6,28 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class ProjectsTest extends TestCase
+class ManageProjectsTest extends TestCase
 {
     use RefreshDatabase, WithFaker;
 
     /** @test */
-    public function guests_cannot_create_projects(){
-// $this->withoutExceptionHandling();
-
-        $attributes = factory('App\Project')->raw();
-
-        $this->post('/projects', $attributes)->assertRedirect('login');
-    }
-
-    /** @test */
-    public function guests_cannot_view_projects(){
-// $this->withoutExceptionHandling();
-        $this->get('/projects')->assertRedirect('login');
-    }
-
-    /** @test */
-    public function guests_cannot_view_a_single_project(){
-// $this->withoutExceptionHandling();
+    public function guests_cannot_manage_projects(){
         $project = factory('App\Project')->create();
 
+        $this->get('/projects')->assertRedirect('login');
+        $this->get('/projects/create')->assertRedirect('login');
         $this->get($project->path())->assertRedirect('login');
+        $this->post('/projects', $project->toArray())->assertRedirect('login');
+
     }
 
     /** @test */
     public function a_user_can_create_a_project(){
+        $this->withoutExceptionHandling();
+
         $this->actingAs(factory('App\User')->create());
 
-        $this->withoutExceptionHandling();
+        $this->get('projects/create')->assertStatus(200);
 
         $attributes = [
             'title' => $this->faker->sentence,
