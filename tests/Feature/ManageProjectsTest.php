@@ -11,18 +11,19 @@ class ManageProjectsTest extends TestCase
     use RefreshDatabase, WithFaker;
 
     /** @test */
-    public function guests_cannot_manage_projects(){
+    public function guests_cannot_manage_projects()
+    {
         $project = factory('App\Project')->create();
 
         $this->get('/projects')->assertRedirect('login');
         $this->get('/projects/create')->assertRedirect('login');
         $this->get($project->path())->assertRedirect('login');
         $this->post('/projects', $project->toArray())->assertRedirect('login');
-
     }
 
     /** @test */
-    public function a_user_can_create_a_project(){
+    public function a_user_can_create_a_project()
+    {
         $this->withoutExceptionHandling();
 
         $this->actingAs(factory('App\User')->create());
@@ -38,11 +39,12 @@ class ManageProjectsTest extends TestCase
 
         $this->assertDatabaseHas('projects', $attributes);
 
-        $this->get('/projects')->assertSee($attributes["title"]); 
+        $this->get('/projects')->assertSee($attributes["title"]);
     }
 
     /** @test */
-    public function a_user_can_view_their_project(){
+    public function a_user_can_view_their_project()
+    {
         $this->be(factory('App\User')->create());
 
         $this->withoutExceptionHandling();
@@ -55,7 +57,8 @@ class ManageProjectsTest extends TestCase
     }
 
     /** @test */
-    public function an_authenticated_user_cannot_view_the_project_of_others(){
+    public function an_authenticated_user_cannot_view_the_project_of_others()
+    {
         $this->be(factory('App\User')->create());
 
         // $this->withoutExceptionHandling();
@@ -66,7 +69,8 @@ class ManageProjectsTest extends TestCase
     }
 
     /** @test */
-    public function a_project_requires_a_title(){
+    public function a_project_requires_a_title()
+    {
         $this->actingAs(factory('App\User')->create());
 
         $attributes = factory('App\Project')->raw(['title' => '']);
@@ -75,12 +79,12 @@ class ManageProjectsTest extends TestCase
     }
 
     /** @test */
-    public function a_project_requires_a_description(){
+    public function a_project_requires_a_description()
+    {
         $this->actingAs(factory('App\User')->create());
 
         $attributes = factory('App\Project')->raw(['description' => '']);
 
         $this->post('/projects', $attributes)->assertSessionHasErrors('description');
     }
-
 }
