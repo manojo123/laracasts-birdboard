@@ -25,7 +25,7 @@
             <div class="container mx-auto">
                <div class="flex justify-between items-center py-2">
                     <a class="navbar-brand" href="{{ url('/') }}">
-                      <img src="/images/logo.svg" alt="Birdboard">
+                      <img src="{{ asset('images/logo.svg') }}" alt="Birdboard">
                    </a>
                    
                    <div >

@@ -9,6 +9,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 class ProjectTest extends TestCase
 {
 	use RefreshDatabase;
+	use WithFaker;
 	/** @test */
 	public function it_has_a_path(){
 		$project = factory('App\Project')->create();
@@ -21,5 +22,17 @@ class ProjectTest extends TestCase
 		$project = factory('App\Project')->create();
 
 		$this->assertInstanceOf('App\User',$project->owner);
+	}
+
+	/** @test */
+	public function it_can_add_a_task(){
+		$project = factory('App\Project')->create();
+
+		$body = $this->faker->sentence;
+		$task = $project->addTask($body);
+
+		$this->assertCount(1, $project->tasks);
+		$this->assertTrue($project->tasks->contains($task));
+		$this->assertEquals($task->body, $body);
 	}
 }
