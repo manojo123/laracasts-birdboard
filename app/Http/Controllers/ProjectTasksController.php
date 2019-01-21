@@ -8,26 +8,28 @@ use Illuminate\Http\Request;
 
 class ProjectTasksController extends Controller
 {
-	public function update(Project $project, Task $task){
-		$this->authorize('update', $task->project);
-		
-		request()->validate(['body' => 'required']);
+    public function update(Project $project, Task $task)
+    {
+        $this->authorize('update', $task->project);
+        
+        request()->validate(['body' => 'required']);
 
-		$task->update([
-			'body' => request('body'),
-			'completed' => request()->has('completed')
-		]);
+        $task->update([
+            'body' => request('body'),
+            'completed' => request()->has('completed')
+        ]);
 
-		return redirect($project->path());
-	}
+        return redirect($project->path());
+    }
 
-	public function store(Project $project){
-		$this->authorize('update', $project);
+    public function store(Project $project)
+    {
+        $this->authorize('update', $project);
 
-		request()->validate(['body' => 'required']);
+        request()->validate(['body' => 'required']);
 
-		$project->addTask(request('body'));
+        $project->addTask(request('body'));
 
-		return redirect($project->path());
-	}
+        return redirect($project->path());
+    }
 }

@@ -9,8 +9,8 @@ class Project extends Model
 {
     protected $guarded = [];
 
-    public function path(){
-    	return url('projects/'.$this->id);
+    public function path($route = ""){
+    	return url('projects/'.$this->id.$route);
     }
 
     public function owner(){
