@@ -68,6 +68,20 @@ class ManageProjectsTest extends TestCase
     }
 
     /** @test */
+    public function a_user_can_update_a_projects_general_notes(){
+        $project = ProjectFactory::create();
+
+        $note = $this->faker->sentence;
+        $title = $this->faker->sentence;
+        $description = $this->faker->sentence;
+
+        $this->actingAs($project->owner)
+            ->patch($project->path(), $attributes = ['notes' => $note]);
+
+        $this->assertDatabaseHas('projects', $attributes);
+    }
+
+    /** @test */
     public function a_user_can_view_their_project()
     {
         $project = ProjectFactory::create();
@@ -117,4 +131,5 @@ class ManageProjectsTest extends TestCase
 
         $this->post('/projects', $attributes)->assertSessionHasErrors('description');
     }
+
 }
