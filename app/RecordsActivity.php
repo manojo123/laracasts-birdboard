@@ -69,7 +69,7 @@ trait RecordsActivity
      *  @return array
      */
     protected static function recordableEvents(){
-    	return isset(static::$recordableEvents) ? static::$recordableEvents : ['created', 'updated', 'deleted'];
+    	return isset(static::$recordableEvents) ? static::$recordableEvents : ['created', 'updated'];
     }
     
 
