@@ -24,8 +24,16 @@ class Project extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
+    
     public function owner() {
     	return $this->belongsTo(User::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function activity() {
+        return $this->hasMany(Activity::class)->latest();
     }
 
     /**
@@ -40,14 +48,14 @@ class Project extends Model
      * @return Model
      */
     public function addTask($body) {
-      return $this->tasks()->create(compact('body'));
-  }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function activity() {
-        return $this->hasMany(Activity::class)->latest();
+        return $this->tasks()->create(compact('body'));
     }
 
+    public function invite(User $user){
+        return $this->members()->attach($user);
+    }
+
+    public function members(){
+        return $this->belongsToMany(User::class, 'project_members');
+    }
 }

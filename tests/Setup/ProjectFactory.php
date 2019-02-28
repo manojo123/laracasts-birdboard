@@ -35,5 +35,3 @@ class ProjectFactory
 		return $project;
 	}
 }
-
-?>

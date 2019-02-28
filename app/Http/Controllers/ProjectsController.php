@@ -8,15 +8,18 @@ use Illuminate\Http\Request;
 
 class ProjectsController extends Controller
 {
-
+    /**
+     * @return Illuminate\Contracts\Routing\view
+     */
     public function index()
     {
         $projects = auth()->user()->projects;
         return view('projects.index', compact('projects'));
     }
+
     /**
-     * @param  Project
-     * @return [type]
+     * @param  Project $project [description]
+     * @return Illuminate\Contracts\Routing\view
      */
     public function show(Project $project)
     {
