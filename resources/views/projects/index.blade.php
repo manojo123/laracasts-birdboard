@@ -4,7 +4,7 @@
 
 <header class="flex items-center mb-3 pb-4">
 	<div class="flex justify-between items-end w-full">
-		<h2 class="text-grey text-sm font-normal">My Projects</h2>
+		<h2 class="text-muted text-base font-light">My Projects</h2>
 		<a href="{{ url('projects/create') }}" class="button">New Project</a>
 	</div>
 </header>
